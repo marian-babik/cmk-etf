@@ -20,7 +20,7 @@ ENV CHECK_MK_SITE=${check_mk_site:-etf}
 ENV CHECK_MK_VERSION=${check_mk_version}
 ENV CMK_SITE_ID=${check_mk_site}
 
-COPY etf-base/config/etf9-stable.repo /etc/yum.repos.d/etf9-stable.repo
+COPY ./config/etf9-stable.repo /etc/yum.repos.d/etf9-stable.repo
 
 RUN yum -y install epel-release
 RUN yum -y update
@@ -63,12 +63,12 @@ RUN echo 'export PYTHONPATH=/usr/lib/python2.7/site-packages/:/usr/lib64/python2
     
 # httpd ssl auth config
 RUN rm -f /etc/httpd/conf.d/zzz_omd.conf
-COPY etf-base/config/ssl.conf /etc/httpd/conf.d/ssl.conf
-COPY etf-base/config/auth.conf /opt/omd/sites/$check_mk_site/etc/apache/conf.d/auth.conf
+COPY ./config/ssl.conf /etc/httpd/conf.d/ssl.conf
+COPY ./config/auth.conf /opt/omd/sites/$check_mk_site/etc/apache/conf.d/auth.conf
 RUN echo "auth_by_http_header = 'X-Remote-User'" >> /omd/sites/$check_mk_site/etc/check_mk/multisite.mk
 
 # disable welcome page
-COPY etf-base//config/welcome.conf /etc/httpd/conf.d/welcome.conf
+COPY .//config/welcome.conf /etc/httpd/conf.d/welcome.conf
 
 # httpd logs to stdout/err
 RUN sed -i 's|ErrorLog "logs/error_log"|ErrorLog /dev/stderr|g' /etc/httpd/conf/httpd.conf
@@ -82,9 +82,9 @@ RUN sed -i 's|CustomLog "logs/access_log" combined|CustomLog /dev/stdout combine
 RUN chown -R $check_mk_site.$check_mk_site /etc/ncgx
 RUN chown -R $check_mk_site.$check_mk_site /var/cache/ncgx
 RUN mkdir /var/cache/nap && chown -R $check_mk_site.$check_mk_site /var/cache/nap
-COPY etf-base/config/nagios.cfg /omd/sites/$check_mk_site/etc/nagios/nagios.cfg
-COPY etf-base/config/ncgx.cron /opt/omd/sites/$check_mk_site/etc/cron.d/ncgx
-COPY etf-base/config/etf.cron /etc/cron.d/etf_cleanup
+COPY ./config/nagios.cfg /omd/sites/$check_mk_site/etc/nagios/nagios.cfg
+COPY ./config/ncgx.cron /opt/omd/sites/$check_mk_site/etc/cron.d/ncgx
+COPY ./config/etf.cron /etc/cron.d/etf_cleanup
 
 HEALTHCHECK --interval=1m --timeout=5s \
     CMD omd status || exit 1

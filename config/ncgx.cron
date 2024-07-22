@@ -1,0 +1,3 @@
+42 */6 * * * (/usr/bin/ncgx --log && /opt/omd/versions/default/bin/cmk -O) > /opt/omd/sites/etf/var/log/ncgx.log 2>&1
+6 8 * * * /bin/find /opt/omd/sites/etf/var/nagios/archive/* -mtime +7 -exec rm {} \;
+10 8 * * sun /bin/find /var/cache/ncgx/inventory* -mtime +30 -exec rm {} \;

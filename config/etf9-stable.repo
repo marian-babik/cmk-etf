@@ -1,6 +1,6 @@
 [etf9-stable]
 name=ETF 9 [Stable]
-baseurl=http://linuxsoft.cern.ch/internal/repos/etf9al-stable/x86_64/os/
+baseurl=https://linuxsoft.cern.ch/repos/etf9al-stable/x86_64/os/
 enabled=1
 priority=10
 gpgcheck=0

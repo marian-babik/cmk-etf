@@ -8,6 +8,13 @@ name: Docker
 on:
   push:
     tags: [ '*.*.*' ]
+  workflow_dispatch:
+    inputs:
+      name:
+        description: 'API sync'
+        default: 'World'
+        # Input has to be provided for the workflow to run
+        required: true
 
 env:
   # Use docker.io for Docker Hub if empty

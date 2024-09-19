@@ -1,6 +1,6 @@
 FROM almalinux/9-base:latest
 
-ARG check_mk_version="2.3.0p7"
+ARG check_mk_version="2.3.0p16"
 ARG check_mk_package="check-mk-raw-${check_mk_version}-el9-38.x86_64.rpm"
 
 LABEL description="ETF base image"
